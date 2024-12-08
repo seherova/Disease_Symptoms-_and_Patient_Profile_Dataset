@@ -63,16 +63,16 @@ data_cleaned = data_cleaned[~((data_cleaned['Yaş'] < (Q1 - multiplier * IQR)) |
 data_cleaned.to_excel(output_Path, index=False)
 print(f"\n###Temizlenmiş veri kaydedildi:{output_Path}###")
 
-#binary_columns = ["Ateş", "Öksürük", "Yorgunluk", "Nefes Almada Zorluk", "Cinsiyet", "Çıkış Değişkeni", "Kan Basıncı", "Kolesterol Seviyesi"]
+binary_columns = ["Ateş", "Öksürük", "Yorgunluk", "Nefes Almada Zorluk", "Cinsiyet", "Çıkış Değişkeni", "Kan Basıncı", "Kolesterol Seviyesi"]
 
-# binary_map = {
+binary_map = {
     # 'Yes':1, 'No':0,
     # # 'Male': 1, 'Female': 0,
     # 'Positive':1, 'Negative': 0,
     # 'Low': -1, 'Normal':0, 'High':1
-# }
+ }
 #                                   **gereksiz nitelikler için korelasyon anlamlı**
-# 
+ 
 
 df_encoded = data_cleaned.copy()
 
