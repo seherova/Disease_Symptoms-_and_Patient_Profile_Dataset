@@ -16,7 +16,6 @@ print("Temel İstatistikler:")
 summary_stats = data.describe(include="all").transpose()
 print(summary_stats.to_string())
 
-
 #for col in data.columns:
 #print(f"{col} unique values:", data[col].unique())
 
@@ -48,10 +47,14 @@ data_cleaned.to_excel(output_Path, index=False)
 
 # OUTLIER DETECTION, Tamamlanmadı, bizim veri setinde numerik outlier olması için bir satır daha eklemek lazım sadece yaş sütunu Outlier olan.
 # IQR method for outlier detection
-multiplier = 1.5
+multiplier = 1.5 
 Q1 = data_cleaned['Yaş'].quantile(0.25)
 Q3 = data_cleaned['Yaş'].quantile(0.75)
 IQR = Q3 - Q1
+
+# z score ile de yapılabilir.
+# asymmetric distrubution (gauss dağılımda)
+# outlier'da uzman görüşüne dayanmak
 
 # Remove outliers
 data_cleaned = data_cleaned[~((data_cleaned['Yaş'] < (Q1 - multiplier * IQR)) | (data_cleaned['Yaş'] > (Q3 + multiplier * IQR)))]
@@ -60,18 +63,16 @@ data_cleaned = data_cleaned[~((data_cleaned['Yaş'] < (Q1 - multiplier * IQR)) |
 data_cleaned.to_excel(output_Path, index=False)
 print(f"\n###Temizlenmiş veri kaydedildi:{output_Path}###")
 
+#binary_columns = ["Ateş", "Öksürük", "Yorgunluk", "Nefes Almada Zorluk", "Cinsiyet", "Çıkış Değişkeni", "Kan Basıncı", "Kolesterol Seviyesi"]
 
-print("##########################")
-
-
-binary_columns = ["Ateş", "Öksürük", "Yorgunluk", "Nefes Almada Zorluk", "Cinsiyet", "Çıkış Değişkeni", "Kan Basıncı", "Kolesterol Seviyesi"]
-
-binary_map = {
-    'Yes':1, 'No':0,
-    'Male': 1, 'Female': 0,
-    'Positive':1, 'Negative': 0,
-    'Low': -1, 'Normal':0, 'High':1
-}
+# binary_map = {
+    # 'Yes':1, 'No':0,
+    # # 'Male': 1, 'Female': 0,
+    # 'Positive':1, 'Negative': 0,
+    # 'Low': -1, 'Normal':0, 'High':1
+# }
+#                                   **gereksiz nitelikler için korelasyon anlamlı**
+# 
 
 df_encoded = data_cleaned.copy()
 
@@ -91,3 +92,4 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", cbar=True)
 plt.title("Korelasyon Matrisi Isı Haritası")
 plt.show()
+
