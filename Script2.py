@@ -16,5 +16,5 @@ most_common_class, predictions = zero_r(df, target_column)
 true_values = df[target_column].tolist()
 accuracy = accuracy_score(true_values, predictions)
 
-print(f"En yaygın sınıf (zeroR): {most_common_class}")
+print(f"En yaygın değişken (zeroR): {most_common_class}")
 print(f"ZeroR doğruluk skoru: {accuracy:.2f}")
