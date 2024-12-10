@@ -1,8 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
+# Load the data
+parent_path = Path(__file__).parent.parent
+file_path = parent_path / 'Cleaned_Data.xlsx'
+output_Path = parent_path / 'Dönüştürülmüş_Veri.xlsx'
 
-
-file_path = "/Users/seherova/Downloads/FinalOdevi/Cleaned_Data.xlsx"
 data = pd.read_excel(file_path)
 
 bins = [0, 20, 30, 40, 50, 60,70,80,90]  # 50'nin üstündeki değerler için ek aralık
@@ -12,7 +15,7 @@ labels = ['0-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '+80']
 
 data['Yaş_Sepetlendi'] = pd.cut(data['Yaş'], bins=bins, labels=labels, right=False)
 
-data.to_excel('Dönüştürülmüş_Veri.xlsx', index=False, engine='openpyxl')
+data.to_excel(output_Path, index=False, engine='openpyxl')
 
 
 # Sepetleme sonuçlarını görselleştir
